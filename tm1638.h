@@ -1,26 +1,23 @@
 /**
  *
  * @file 
- * @brief   Interface to tm1638 library
+ * @brief   A simple interface to TM1638 based displays for the Raspberry Pi.
  * @author  Martin Oldfield <ex-tm1638@mjo.tc>
  * @version 0.1
  *
- * @section LICENSE
- *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation; either version 2 of
- * the License, or (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * General Public License for more details at
- * http://www.gnu.org/copyleft/gpl.html
- *
  * @section DESCRIPTION
  *
- * An easy interface to the TM1638 based displays.
+ * A simple interface to the TM1638 based displays for the Raspberry Pi.
+ *
+ * Dealextreme, doubtless amongst others, sell small boards with eight
+ * seven-segment displays, eight red-green LEDs and eight push buttons
+ * for less than $10.
+ *
+ * The boards are basically just the LEDs and switches, and a TM1638
+ * driver chip. This sits on a two-wire serial bus which makes it
+ * fairly easy to connect the boards to a computer/microcontroller of
+ * your choice. Of course, one needs a little bit of software. This is
+ * such a library for the Raspberry Pi.
  *
  * @section EXAMPLE
  *
@@ -56,6 +53,19 @@
  * Arduino library
  * Arduino blog post
  * Datasheet
+ *
+ * @section LICENSE
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License as
+ * published by the Free Software Foundation; either version 2 of
+ * the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * General Public License for more details at
+ * http://www.gnu.org/copyleft/gpl.html
  *
  */
 
