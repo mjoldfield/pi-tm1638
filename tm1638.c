@@ -57,14 +57,20 @@
 
 #include "tm1638.h"
 
+/**
+ * A struct representing the TM1638 board.
+ *
+ * If you're just using the library, you shouldn't care how this
+ * is defined: it might change under your feet.
+ */
 struct _tm1638
 {
-  uint8_t data_out;
-  uint8_t clock;
-  uint8_t strobe;
+  uint8_t data;       /**< The pin which is connected to the TM1638's data line */
+  uint8_t clock;      /**< The pin which is connected to the TM1638's clock line */
+  uint8_t strobe;     /**< The pin which is connected to the TM1638's strobe line */
 
-  uint8_t intensity;
-  bool    enable;
+  uint8_t intensity;  /**< The current LED brightness */
+  bool    enable;     /**< true iff we're enabled */
 };
 
 static void tm1638_send_raw(const tm1638_p t, uint8_t x);
@@ -84,14 +90,14 @@ tm1638_p tm1638_alloc(uint8_t data, uint8_t clock, uint8_t strobe)
   if (!t)
     return NULL;
 
-  t->data_out  = data_out;
-  t->clock     = clock;
-  t->strobe    = strobe;
+  t->data   = data;
+  t->clock  = clock;
+  t->strobe = strobe;
   
   t->intensity = 7;
   t->enable    = true;
 
-  bcm2835_gpio_fsel(t->data_out, BCM2835_GPIO_FSEL_OUTP);
+  bcm2835_gpio_fsel(t->data, BCM2835_GPIO_FSEL_OUTP);
   bcm2835_gpio_fsel(t->clock,    BCM2835_GPIO_FSEL_OUTP);
   bcm2835_gpio_fsel(t->strobe,   BCM2835_GPIO_FSEL_OUTP);
 
@@ -172,7 +178,7 @@ static void tm1638_send_raw(const tm1638_p t, uint8_t x)
       bcm2835_gpio_write(t->clock, LOW);
       delayMicroseconds(1);
 
-      bcm2835_gpio_write(t->data_out, x & 1 ? HIGH : LOW);
+      bcm2835_gpio_write(t->data, x & 1 ? HIGH : LOW);
       delayMicroseconds(1);
 
       x  >>= 1;
@@ -197,7 +203,7 @@ static uint8_t tm1638_receive_raw(const tm1638_p t)
   uint8_t x = 0;
 
   /* Turn GPIO pin into an input */
-  bcm2835_gpio_fsel(t->data_out, BCM2835_GPIO_FSEL_INPT);
+  bcm2835_gpio_fsel(t->data, BCM2835_GPIO_FSEL_INPT);
     
   for(int i = 0; i < 8; i++)
     {
@@ -206,7 +212,7 @@ static uint8_t tm1638_receive_raw(const tm1638_p t)
       bcm2835_gpio_write(t->clock, LOW);
       delayMicroseconds(1);
 
-      uint8_t y = bcm2835_gpio_lev(t->data_out);
+      uint8_t y = bcm2835_gpio_lev(t->data);
 
       if (y & 1)
 	x |= 1;
@@ -217,7 +223,7 @@ static uint8_t tm1638_receive_raw(const tm1638_p t)
     }
 
   /* Turn GPIO pin back into an output */
-  bcm2835_gpio_fsel(t->data_out, BCM2835_GPIO_FSEL_OUTP);
+  bcm2835_gpio_fsel(t->data, BCM2835_GPIO_FSEL_OUTP);
 
   return x;
 }

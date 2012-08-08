@@ -72,7 +72,19 @@
 #ifndef _TM1638_H_
 #define _TM1638_H_
 
+/**
+   Forward declaration of the tm1638 structure. Users of the library
+   should treat this as an opaque object and all interaction with the
+   struct will be indirect.
+
+   That is, the library will allocate and free all the structs, so
+   your code should only contain pointers to tm1638 structs, not the structs themselves.
+*/
 typedef struct _tm1638 tm1638;
+
+/**
+   With this in mind, here's a pointer!
+*/
 typedef (*tm1638)      tm1638_p;
 
 /**
@@ -135,7 +147,7 @@ void tm1638_set_7seg_raw(const tm1638_p t, uint8_t digit, uint8_t n);
  * @param str     The text to display.
  * @param dots    The 8 bits correspond to the decimal points, LSB = leftmost.
  */
-void tm1638_set_7seg_text(const tm1638_p t, const char *str);
+void tm1638_set_7seg_text(const tm1638_p t, const char *str, uint8_t dots);
 
 /**
  *
@@ -164,13 +176,6 @@ void tm1638_set_8leds(const tm1638_p t, uint8_t red, uint8_t green);
  * @param t       Pointer to the tm1638 of interest.
  */
 void tm1638_send_cls(const tm1638_p t);
-
-/**
- *
- * Turn off all the LEDs
- *
- * @param t       Pointer to the tm1638 of interest.
- */
 
 /**
  *
