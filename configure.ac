@@ -12,7 +12,8 @@ if test -z "$DOXYGEN";
 fi
 
 # Check for libbcm2835
-AC_CHECK_LIB([bcm2835], [bcm2835_init])
+AC_CHECK_LIB([bcm2835], [bcm2835_init], ,
+ [AC_MSG_ERROR(bcm2835 library not found, see http:http://www.open.com.au/mikem/bcm2835/)])
 
 # Checks for header files.
 AC_CHECK_HEADERS([stdint.h stdlib.h])
