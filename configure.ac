@@ -5,6 +5,7 @@ AM_INIT_AUTOMAKE([-Wall -Werror])
 
 # Checks for programs.
 AC_PROG_CC
+AM_PROG_AR
 AC_PROG_RANLIB
 AC_CHECK_PROGS([DOXYGEN], [doxygen])
 if test -z "$DOXYGEN";
