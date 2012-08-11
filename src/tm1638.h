@@ -80,12 +80,12 @@
    That is, the library will allocate and free all the structs, so
    your code should only contain pointers to tm1638 structs, not the structs themselves.
 */
-typedef struct _tm1638 tm1638;
+typedef struct tm1638_tag tm1638;
 
 /**
    With this in mind, here's a pointer!
 */
-typedef (*tm1638)      tm1638_p;
+typedef tm1638 *tm1638_p;
 
 /**
  * Allocation and initialization function, aka constructor.

@@ -43,6 +43,9 @@
 #include <bcm2835.h>
 #include <tm1638.h>
 
+static void knight_rider(tm1638_p t, int n);
+static void flashy(tm1638_p t);
+
 int main(int argc, char *argv[])
 {
   tm1638_p t;
@@ -60,37 +63,68 @@ int main(int argc, char *argv[])
       return -2;
     }
 
-  tm1638_set_7seg_text(t, "Hello!", 0xc0);
-  delay(2500);
-  
-  for(int k = 0; k < 4; k++)
-    {
-      tm1638_send_cls(t);
+  tm1638_set_7seg_text(t, "Hello !", 0x00);
+  delay(5000);
 
-      for(int i = 0; i < 8; i++)
-	{
-	  for(int j = 7; j >= 0; j--)
-	    {
-	      tm1638_set_intensity(t, j);
-	      delay(50);
-	    }
+  tm1638_send_cls(t);
 
-	  tm1638_set_7seg_raw(t, i, (1 << i));
-	  
-	  for(int j = 0; j < 8; j++)
-	    {
-	      tm1638_set_intensity(t, j);
-	      delay(50);
-	    }
+  knight_rider(t,2);
 
-	  tm1638_set_led(t, i, i);
-	  delay(50);
-	}
-    }
+  tm1638_send_cls(t);
+
+  flashy(t);
+
+  tm1638_send_cls(t);
+
+  knight_rider(t,2);
+
+  tm1638_send_cls(t);
+
+  tm1638_set_7seg_text(t, "Goodbye!", 0x00);
 
   tm1638_free(&t);
 
   return 0;
+}
+
+static void knight_rider(tm1638_p t, int n)
+{
+  for(int i = 0; i < n; i++)
+    {
+      for(int j = 0, k = 1; j < 8; j++, k <<= 1)
+	{
+	  tm1638_set_8leds(t, k, 0);
+	  delay(25);
+	}
+      for(int j = 0, k = 128; j < 8; j++, k >>= 1)
+	{
+	  tm1638_set_8leds(t, k, 0);
+	  delay(25);
+	}
+    }
+}
+
+static void flashy(tm1638_p t)
+{
+  for(int i = 0; i < 8; i++)
+    {
+      for(int j = 7; j >= 0; j--)
+	{
+	  tm1638_set_intensity(t, j);
+	  delay(20);
+	}
+      
+      tm1638_set_7seg_raw(t, i, (1 << i));
+      
+      for(int j = 0; j < 8; j++)
+	{
+	  tm1638_set_intensity(t, j);
+	  delay(20);
+	}
+      
+      tm1638_set_led(t, i, i);
+      delay(20);
+    }
 }
 
 /** @endcond */

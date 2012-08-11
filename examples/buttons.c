@@ -61,7 +61,7 @@ int main(int argc, char *argv[])
       return -2;
     }
 
-  tm1638_set_7seg_text(t, "Buttons!");
+  tm1638_set_7seg_text(t, "Buttons!", 0x00);
   
   while(1)
     {

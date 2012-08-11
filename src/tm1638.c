@@ -63,7 +63,7 @@
  * If you're just using the library, you shouldn't care how this
  * is defined: it might change under your feet.
  */
-struct _tm1638
+struct tm1638_tag
 {
   uint8_t data;       /**< The pin which is connected to the TM1638's data line */
   uint8_t clock;      /**< The pin which is connected to the TM1638's clock line */
@@ -281,16 +281,21 @@ void tm1638_set_7seg_raw(const tm1638_p t, uint8_t digit, uint8_t n)
 /* See tm1638.h */
 void tm1638_set_7seg_text(const tm1638_p t, const char *str, uint8_t dots)
 {
+  const char *p = str;
+
   for(int i = 0, j = 1; i < 8; i++, j <<= 1)
     {
-      char c = str[i];
-      if (!c)
-	break;
+      // We want the loop to finish, but don't walk over the end of the string
+      char c = *p;
+      if (c)
+	p++;
+      
+      uint8_t f =  tm1638_font(c);
 
       if (dots & j)
-	c |= 128;
+	f |= 128;
 
-      tm1638_set_7seg_raw(t, i, tm1638_font(c));
+      tm1638_set_7seg_raw(t, i, f);
     }
 }
 
