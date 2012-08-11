@@ -32,6 +32,25 @@
  * 2. Some delays are needed or some pulses are too fast. The delays
  *    are all somewhat arbitrary, and whilst they work for me, I don't
  *    claim that they are optimal.
+ * 3. The packaging is rather clunky: I don't grok autotools very well!
+ *
+ * @section REFERENCES
+ *
+ * Inevitably people have already done all this for with an Arduino,
+ * and that made it easier to write this:
+ *
+ * 1. John Boxall wrote [a blog about
+ * it.](http://tronixstuff.wordpress.com/2012/03/11/arduino-and-tm1638-led-display-modules/)
+ * 2. Ricardo Batista wrote [a library to do
+ * it.](http://code.google.com/p/tm1638-library/)
+ * 3. [Marc](http://www.freetronics.com) (via John above) [found a
+ * datasheet.](http://dl.dropbox.com/u/8663580/TM1638English%20version.pdf)
+ *
+ * This isn't really a port of Ricardo's code: I wanted a different
+ * API.  However, I did copy his nice 7-segment font, and his code was
+ * very helpful when it came to understanding the data-sheet. 
+ * 
+ * Thank you to everyone.
  *
  * @section LICENSE
  *

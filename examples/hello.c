@@ -91,14 +91,19 @@ static void knight_rider(tm1638_p t, int n)
 {
   for(int i = 0; i < n; i++)
     {
-      for(int j = 0, k = 1; j < 8; j++, k <<= 1)
+      for(int j = 0; j < 8; j++)
 	{
-	  tm1638_set_8leds(t, k, 0);
+	  uint8_t m = 128 >> j;
+	  tm1638_set_8leds(t, m, 0);
+	  tm1638_set_7seg_text(t, "", m);
 	  delay(25);
 	}
-      for(int j = 0, k = 128; j < 8; j++, k >>= 1)
+
+      for(int j = 0; j < 8; j++)
 	{
-	  tm1638_set_8leds(t, k, 0);
+	  uint8_t m = 1 << j;
+	  tm1638_set_8leds(t, m, 0);
+	  tm1638_set_7seg_text(t, "", m);
 	  delay(25);
 	}
     }
@@ -106,24 +111,22 @@ static void knight_rider(tm1638_p t, int n)
 
 static void flashy(tm1638_p t)
 {
+  uint8_t green = 0;
+
   for(int i = 0; i < 8; i++)
     {
-      for(int j = 7; j >= 0; j--)
-	{
-	  tm1638_set_intensity(t, j);
-	  delay(20);
-	}
-      
-      tm1638_set_7seg_raw(t, i, (1 << i));
+      uint8_t mask = (128 >> i);
+
+      tm1638_set_8leds(t, mask, green);
       
       for(int j = 0; j < 8; j++)
 	{
-	  tm1638_set_intensity(t, j);
-	  delay(20);
+	  tm1638_set_7seg_raw(t, i, (1 << j));
+	  delay(50);
 	}
       
-      tm1638_set_led(t, i, i);
-      delay(20);
+      green |= mask;
+      tm1638_set_8leds(t, 0, green);
     }
 }
 

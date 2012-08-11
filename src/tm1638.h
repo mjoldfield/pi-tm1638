@@ -54,9 +54,18 @@
  * Inevitably people have already done all this for with an Arduino,
  * and that made it easier to write this:
  *
- *     1. John Boxall wrote [a blog about it.](http://tronixstuff.wordpress.com/2012/03/11/arduino-and-tm1638-led-display-modules/)
- *     2. Ricardo Batista wrote [a library to do it.](http://code.google.com/p/tm1638-library/)
- *     3. [Marc](http://www.freetronics.com) (via John above) [found a datasheet.](http://dl.dropbox.com/u/8663580/TM1638English%20version.pdf)
+ * 1. John Boxall wrote [a blog about
+ * it.](http://tronixstuff.wordpress.com/2012/03/11/arduino-and-tm1638-led-display-modules/)
+ * 2. Ricardo Batista wrote [a library to do
+ * it.](http://code.google.com/p/tm1638-library/)
+ * 3. [Marc](http://www.freetronics.com) (via John above) [found a
+ * datasheet.](http://dl.dropbox.com/u/8663580/TM1638English%20version.pdf)
+ *
+ * This isn't really a port of Ricardo's code: I wanted a different
+ * API.  However, I did copy his nice 7-segment font, and his code was
+ * very helpful when it came to understanding the data-sheet. 
+ * 
+ * Thank you to everyone.
  *
  * @section LICENSE
  *
@@ -168,8 +177,11 @@ void tm1638_set_led(const tm1638_p t, uint8_t led, uint8_t cols);
  * Set the status of all eight LEDs at once
  *
  * @param t       Pointer to the tm1638 of interest.
- * @param red     A byte's worth of red data (LSB is leftmost).
- * @param green   A byte's worth of grren data (LSB is leftmost).
+ * @param red     A byte's worth of red data (MSB is leftmost).
+ * @param green   A byte's worth of green data (MSB is leftmost).
+ *
+ * The ordering might seem odd, but makes the display a sensible
+ * binary rendition of red & green.
  */
 void tm1638_set_8leds(const tm1638_p t, uint8_t red, uint8_t green);
 
@@ -210,7 +222,7 @@ uint32_t tm1638_read_buttons(const tm1638_p t);
  *
  * @param t       Pointer to the tm1638 of interest.
  *
- * @return        8-bit uint of button states. LSB is leftmost.
+ * @return        8-bit uint of button states. MSB is leftmost.
  */
 uint8_t  tm1638_read_8buttons(const tm1638_p t);
 
