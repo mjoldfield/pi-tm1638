@@ -45,14 +45,18 @@
  *
  * @section DEPENDENCIES
  *
- * All of the hardware interfacing is done via XXXX's excellent bcm2835 library,
- * so you'll need to install that first.
+ * All of the hardware interfacing is done via Mike McCauley's
+ * excellent bcm2835 library, so you'll need to install that
+ * first. Get it from http://www.open.com.au/mikem/bcm2835/
  *
  * @section REFERENCES
  *
- * Arduino library
- * Arduino blog post
- * Datasheet
+ * Inevitably people have already done all this for with an Arduino,
+ * and that made it easier to write this:
+ *
+ *     1. John Boxall wrote [a blog about it.](http://tronixstuff.wordpress.com/2012/03/11/arduino-and-tm1638-led-display-modules/)
+ *     2. Ricardo Batista wrote [a library to do it.](http://code.google.com/p/tm1638-library/)
+ *     3. [Marc](http://www.freetronics.com) (via John above) [found a datasheet.](http://dl.dropbox.com/u/8663580/TM1638English%20version.pdf)
  *
  * @section LICENSE
  *
