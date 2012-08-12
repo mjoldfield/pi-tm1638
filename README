@@ -9,3 +9,25 @@ driver chip. This sits on a two-wire serial bus which makes it
 fairly easy to connect the boards to a computer/microcontroller of
 your choice. Of course, one needs a little bit of software. This is
 such a library for the Raspberry Pi.
+
+You can grab the code from github https://github.com/mjoldfield/pi-tm1638
+
+1. Checkout the code (needs autotools):
+       git clone https://github.com/mjoldfield/pi-tm1638.git
+       autoreconf -vfi
+       ./configure
+       make
+       sudo make install
+
+2. Or just grab the a tarball (no autotools needed):
+      wget https://github.com/downloads/mjoldfield/pi-tm1638/pi-tm1638-1.0.tar.gz
+      tar xzvf pi-tm1638-1.0.tar.gz
+      cd pi-tm1638-1.0
+      ./configure
+      make
+      sudo make install
+
+If you've got doxygen installed, you'll find docs in doc/html. Otherwise
+feel free to browse them on github. Here's a good place to start:
+   http://mjoldfield.github.com/pi-tm1638/tm1638_8h.html
+     
