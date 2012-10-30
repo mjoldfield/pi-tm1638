@@ -12,6 +12,9 @@ if test -z "$DOXYGEN";
    then AC_MSG_WARN([Doxygen not found - continuing without Doxygen support])
 fi
 
+#Check for librt (Needed by libbcm2835)
+AC_CHECK_LIB([rt], [clock_gettime])
+
 # Check for libbcm2835
 AC_CHECK_LIB([bcm2835], [bcm2835_init], ,
  [AC_MSG_ERROR([bcm2835 library not found, see http://www.open.com.au/mikem/bcm2835/])])
